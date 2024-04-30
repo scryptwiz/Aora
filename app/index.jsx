@@ -6,9 +6,9 @@ export default Home = () => {
 
     return (
         <View className="flex-1 items-center justify-center bg-primary">
-            <Text className="text-3xl font-pblack">Aora!</Text>
+            <Text className="text-3xl font-pblack text-secondary">Aora!</Text>
+            <Link href="/home" className='text-blue-500 text-2xl'>Go to Home</Link>
             <StatusBar style="auto" />
-            <Link href="/profile" className='text-blue-500'>Go to profile</Link>
         </View>
     );
 }
