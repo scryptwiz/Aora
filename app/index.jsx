@@ -8,11 +8,9 @@ import { images } from '../constants';
 import { useGlobalContext } from '../context/GlobalProviders';
 
 export default Home = () => {
-    const [isLoading, isLoggedIn] = useGlobalContext()
+    const { isLoading, isLoggedIn } = useGlobalContext()
 
-    console.log(isLoading, isLoggedIn)
-
-    // if (!isLoading && isLoggedIn) return <Redirect href='/home' />
+    if (!isLoading && isLoggedIn) return <Redirect href='/home' />
 
     return (
         <SafeAreaView className='bg-primary h-full'>
