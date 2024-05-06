@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -8,13 +8,27 @@ import { StatusBar } from 'expo-status-bar'
 import CustomButton from '../../components/CustomButton'
 import FormField from '../../components/FormField'
 import { images } from '../../constants'
+import { signIn } from '../../lib/appWrite'
 
 const SignIn = () => {
     const [form, setForm] = useState({ email: '', password: '' })
     const [submitting, setSubmitting] = useState(false)
 
-    const submit = () => {
-        router.push('/home')
+    const submit = async () => {
+        if (!form.email || !form.password) {
+            return Alert.alert('Error', 'Fill in all the fields')
+        }
+        setSubmitting(true)
+        try {
+            const signinUser = await signIn(form.email, form.password)
+            if (signinUser) {
+                router.replace('/home')
+            }
+        } catch (error) {
+            Alert.alert('Error', error.message)
+        } finally {
+            setSubmitting(false)
+        }
     }
     return (
         <SafeAreaView className="bg-primary h-full">

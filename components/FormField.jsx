@@ -16,6 +16,7 @@ const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, .
                     placeholderTextColor="#7b7b8b"
                     onChangeText={handleChangeText}
                     secureTextEntry={title === "Password" && !showPassword}
+                    {...props}
                 />
                 {title === "Password" && (
                     <TouchableOpacity onPress={() => setShowPassword(!showPassword)} className="h-full items-center justify-center">

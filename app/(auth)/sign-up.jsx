@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -8,13 +8,28 @@ import { StatusBar } from 'expo-status-bar'
 import CustomButton from '../../components/CustomButton'
 import FormField from '../../components/FormField'
 import { images } from '../../constants'
+import { createUser } from '../../lib/appWrite'
 
 const SignUp = () => {
     const [form, setForm] = useState({ username: '', email: '', password: '' })
     const [submitting, setSubmitting] = useState(false)
 
-    const submit = () => {
-        router.push('/home')
+    const submit = async () => {
+        if (!form.username || !form.email || !form.password) {
+            return Alert.alert('Error', 'Fill in all the fields')
+        }
+        setSubmitting(true)
+        try {
+            const signupUser = await createUser(form.username, form.email, form.password)
+            if (signupUser) {
+                console.log(signupUser)
+                router.replace('/home')
+            }
+        } catch (error) {
+            Alert.alert('Error', error.message)
+        } finally {
+            setSubmitting(false)
+        }
     }
     return (
         <SafeAreaView className="bg-primary h-full">
@@ -29,7 +44,6 @@ const SignUp = () => {
                         value={form.username}
                         handleChangeText={(e) => setForm({ ...form, username: e })}
                         otherStyles="mt-7"
-                        placeholder="Your username"
                     />
                     <FormField
                         title="Email"
@@ -37,14 +51,12 @@ const SignUp = () => {
                         handleChangeText={(e) => setForm({ ...form, email: e })}
                         otherStyles="mt-7"
                         keyboardType="email-address"
-                        placeholder="Your e-mail"
                     />
                     <FormField
                         title="Password"
                         value={form.password}
                         handleChangeText={(e) => setForm({ ...form, password: e })}
                         otherStyles="mt-7"
-                        placeholder="Your password"
                     />
                     <CustomButton handlePress={submit} title="Sign up" containerStyles="mt-7" isLoading={submitting} />
                     <View className="justify-center pt-5 flex-row gap-2">
