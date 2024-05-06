@@ -57,7 +57,7 @@ const SignIn = () => {
                         <Text className="text-gray-100 font-pregular text-lg">Forgot password</Text>
                     </TouchableOpacity>
                     <CustomButton handlePress={submit} title="Log In" isLoading={submitting} />
-                    <View className="justify-center pt-5 flex-row gap-2">
+                    <View className="justify-center pt-5 flex-row gap-2 items-center">
                         <Text className="text-lg text-gray-100 font-pregular">Don't have an account? <TouchableOpacity><Link href="/sign-up" className="text-secondary font-psemibold text-lg">Signup</Link></TouchableOpacity></Text>
                     </View>
                 </View>

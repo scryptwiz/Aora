@@ -22,7 +22,6 @@ const SignUp = () => {
         try {
             const signupUser = await createUser(form.username, form.email, form.password)
             if (signupUser) {
-                console.log(signupUser)
                 router.replace('/home')
             }
         } catch (error) {
@@ -59,7 +58,7 @@ const SignUp = () => {
                         otherStyles="mt-7"
                     />
                     <CustomButton handlePress={submit} title="Sign up" containerStyles="mt-7" isLoading={submitting} />
-                    <View className="justify-center pt-5 flex-row gap-2">
+                    <View className="justify-center pt-5 flex-row gap-2 items-center">
                         <Text className="text-lg text-gray-100 font-pregular">Have an account already? <TouchableOpacity><Link href="/sign-in" className="text-secondary font-psemibold text-lg">Sign in</Link></TouchableOpacity></Text>
                     </View>
                 </View>
